@@ -1,19 +1,33 @@
 import re
 
 def normalize_phone(phone_number):
+    """
+    Normalizes phone numbers to a standard format.
+    
+    Args:
+        phone_number (str): The phone number in various format.
+
+    Returns:
+        str: The normalized phone number with only digits and '+'.
+    """
+    # Remove all non-digit characters except '+'
     phone_number = re.sub(r"[^\d+]", "", phone_number)
 
+    # Ensure only one '+' at the beginning
     phone_number = re.sub(r"\++", "+", phone_number)
     
-    if phone_number.startswith('+380'):
+    # Normalize phone number format
+    if phone_number.startswith("+380"):
         return phone_number
-    elif phone_number.startswith('380'):
-        return '+' + phone_number
-    elif not phone_number.startswith('+'):
-        return '+38' + phone_number
-    
-    return phone_number
+    elif phone_number.startswith("380"):
+        return "+" + phone_number
+    elif phone_number.startswith("+"):
+        return phone_number
+    else:
+        return "+38" + phone_number
 
+
+# Test case
 raw_numbers = [
     "067\t123 4567",
     "(095) 234-5678\n",
